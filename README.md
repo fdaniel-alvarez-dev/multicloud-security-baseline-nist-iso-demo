@@ -94,7 +94,7 @@ And inspect machine outputs:
 - `artifacts/compare/compare.json`
 - `artifacts/report/controls_coverage.csv`
 
-## Why This Demonstrates Senior Expertise
+## Why This Reflects Real-World Expertise
 - **Framework alignment without cargo-culting:** explicit mapping tables + rationale fields for traceability.
 - **Deterministic, testable scoring:** posture and maturity models are stable and validated by tests.
 - **Executive + engineering outputs:** scorecards + roadmap + backlog with rationale and dependencies.
