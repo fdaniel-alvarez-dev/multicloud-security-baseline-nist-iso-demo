@@ -1,0 +1,113 @@
+{
+  "IAM": {
+    "nist": [
+      {
+        "function": "Protect",
+        "category": "PR.AC (Identity Management, Authentication, and Access Control)",
+        "rationale": "IAM findings typically indicate gaps in access control enforcement, auth strength, or least privilege."
+      },
+      {
+        "function": "Identify",
+        "category": "ID.GV (Governance)",
+        "rationale": "IAM baselines depend on policy, ownership, and governance for consistent privilege management."
+      }
+    ],
+    "iso": [
+      {
+        "theme_id": "A.5",
+        "theme_name": "Access control",
+        "rationale": "IAM issues map directly to access control themes and privileged access hygiene."
+      }
+    ]
+  },
+  "Logging/Monitoring": {
+    "nist": [
+      {
+        "function": "Detect",
+        "category": "DE.CM (Security Continuous Monitoring)",
+        "rationale": "Logging and monitoring gaps reduce detection coverage and mean time to discovery."
+      },
+      {
+        "function": "Respond",
+        "category": "RS.AN (Analysis)",
+        "rationale": "Without telemetry, response analysis and triage degrade materially."
+      }
+    ],
+    "iso": [
+      {
+        "theme_id": "A.8",
+        "theme_name": "Logging and monitoring",
+        "rationale": "Log collection, integrity, and alerting are core to auditability and incident response readiness."
+      }
+    ]
+  },
+  "Network Controls": {
+    "nist": [
+      {
+        "function": "Protect",
+        "category": "PR.PT (Protective Technology)",
+        "rationale": "Network findings commonly indicate missing segmentation, filtering, or insecure exposure."
+      }
+    ],
+    "iso": [
+      {
+        "theme_id": "A.7",
+        "theme_name": "Network security",
+        "rationale": "Network controls map to secure connectivity, segmentation, and reduction of attack surface."
+      }
+    ]
+  },
+  "Governance": {
+    "nist": [
+      {
+        "function": "Identify",
+        "category": "ID.GV (Governance)",
+        "rationale": "Governance findings represent gaps in policy, ownership, standards, and control enforcement."
+      },
+      {
+        "function": "Identify",
+        "category": "ID.RM (Risk Management Strategy)",
+        "rationale": "Governance underpins risk decisions, exception handling, and accountability."
+      }
+    ],
+    "iso": [
+      {
+        "theme_id": "A.6",
+        "theme_name": "Information security governance",
+        "rationale": "Policies, roles, and oversight map to ISO governance themes."
+      }
+    ]
+  },
+  "Asset Inventory": {
+    "nist": [
+      {
+        "function": "Identify",
+        "category": "ID.AM (Asset Management)",
+        "rationale": "You cannot secure what you cannot enumerate; inventory gaps weaken scope and accountability."
+      }
+    ],
+    "iso": [
+      {
+        "theme_id": "A.5",
+        "theme_name": "Asset management",
+        "rationale": "Asset ownership and classification are core to practical security baselining."
+      }
+    ]
+  },
+  "Data Protection": {
+    "nist": [
+      {
+        "function": "Protect",
+        "category": "PR.DS (Data Security)",
+        "rationale": "Data protection findings indicate gaps in encryption, key management, or data lifecycle controls."
+      }
+    ],
+    "iso": [
+      {
+        "theme_id": "A.10",
+        "theme_name": "Cryptography and key management",
+        "rationale": "Encryption and key management map to ISO cryptography and data protection themes."
+      }
+    ]
+  }
+}

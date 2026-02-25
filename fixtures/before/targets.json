@@ -1,0 +1,49 @@
+{
+  "targets": [
+    {
+      "target_id": "aws-prod",
+      "provider": "aws",
+      "environment": "prod",
+      "region": "us-east-1",
+      "owner": "Platform/Security",
+      "assets": [
+        { "asset_id": "111111111111", "asset_type": "aws_account", "name": "prod-account", "labels": { "tier": "prod" } },
+        { "asset_id": "iam-root", "asset_type": "iam_principal", "name": "root", "labels": { "privileged": "true" } },
+        { "asset_id": "cloudtrail", "asset_type": "logging", "name": "CloudTrail", "labels": { "enabled": "true" } }
+      ]
+    },
+    {
+      "target_id": "aws-dev",
+      "provider": "aws",
+      "environment": "dev",
+      "region": "us-east-2",
+      "owner": "Platform/Security",
+      "assets": [
+        { "asset_id": "222222222222", "asset_type": "aws_account", "name": "dev-account", "labels": { "tier": "dev" } },
+        { "asset_id": "vpc-dev", "asset_type": "network", "name": "dev-vpc", "labels": { "segmented": "no" } }
+      ]
+    },
+    {
+      "target_id": "azure-prod",
+      "provider": "azure",
+      "environment": "prod",
+      "region": "eastus",
+      "owner": "Platform/Security",
+      "assets": [
+        { "asset_id": "sub-prod-01", "asset_type": "azure_subscription", "name": "prod-subscription", "labels": { "tier": "prod" } },
+        { "asset_id": "log-analytics", "asset_type": "logging", "name": "Log Analytics", "labels": { "connected": "partial" } }
+      ]
+    },
+    {
+      "target_id": "gcp-prod",
+      "provider": "gcp",
+      "environment": "prod",
+      "region": "us-central1",
+      "owner": "Platform/Security",
+      "assets": [
+        { "asset_id": "proj-prod-01", "asset_type": "gcp_project", "name": "prod-project", "labels": { "tier": "prod" } },
+        { "asset_id": "kms-01", "asset_type": "kms", "name": "Cloud KMS", "labels": { "rotation": "off" } }
+      ]
+    }
+  ]
+}

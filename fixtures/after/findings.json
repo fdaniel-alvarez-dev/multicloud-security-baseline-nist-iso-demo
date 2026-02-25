@@ -1,0 +1,145 @@
+{
+  "findings": [
+    {
+      "schema_version": "1.0",
+      "finding_id": "F-002",
+      "target_id": "aws-prod",
+      "title": "CloudTrail centralized retention partially implemented",
+      "description": "Retention was standardized, but not all regions route to the centralized log destination yet.",
+      "category": "Logging/Monitoring",
+      "severity": "high",
+      "likelihood": "medium",
+      "impact": "high",
+      "evidence": { "signal": "retention_days=365;centralization=partial", "source": "synthetic_logging_baseline" },
+      "affected_assets": ["cloudtrail", "111111111111"],
+      "detection_source": "fixtures/after/findings.json",
+      "detected_at": "2026-02-15T10:05:00Z",
+      "tags": ["logging", "centralization"],
+      "references": ["NIST CSF DE.CM", "ISO 27001 logging theme"],
+      "recommended_actions": [
+        {
+          "action_id": "A-002",
+          "title": "Complete centralized log routing for remaining regions",
+          "description": "Ensure all regions forward audit logs to the centralized destination with integrity controls.",
+          "effort": "M",
+          "expected_impact": 3,
+          "dependencies": ["Central logging account design"],
+          "owner": "Platform/Security"
+        }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "finding_id": "F-003",
+      "target_id": "aws-dev",
+      "title": "Dev network segmentation in progress",
+      "description": "Subnet tiering exists for core services but security group baselines remain inconsistent across teams.",
+      "category": "Network Controls",
+      "severity": "medium",
+      "likelihood": "medium",
+      "impact": "medium",
+      "evidence": { "signal": "subnet_tiering=partial;sg_baselines=inconsistent", "source": "synthetic_network_baseline" },
+      "affected_assets": ["vpc-dev", "222222222222"],
+      "detection_source": "fixtures/after/findings.json",
+      "detected_at": "2026-02-15T10:10:00Z",
+      "tags": ["segmentation", "security-groups"],
+      "references": ["NIST CSF PR.PT", "ISO 27001 network security theme"],
+      "recommended_actions": [
+        {
+          "action_id": "A-003",
+          "title": "Standardize security group templates across teams",
+          "description": "Publish and enforce approved templates; reduce broad ingress/egress rules and enforce reviews.",
+          "effort": "M",
+          "expected_impact": 3,
+          "dependencies": ["Reference VPC architecture patterns"],
+          "owner": "Platform"
+        }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "finding_id": "F-006",
+      "target_id": "aws-prod",
+      "title": "Tagging standard defined but not fully enforced",
+      "description": "Minimum tagging policy exists, but enforcement coverage is incomplete across legacy resources.",
+      "category": "Asset Inventory",
+      "severity": "medium",
+      "likelihood": "medium",
+      "impact": "low",
+      "evidence": { "signal": "required_tags_missing=12%", "source": "synthetic_inventory_review" },
+      "affected_assets": ["111111111111"],
+      "detection_source": "fixtures/after/findings.json",
+      "detected_at": "2026-02-15T10:25:00Z",
+      "tags": ["tagging", "ownership"],
+      "references": ["NIST CSF ID.AM", "ISO asset management theme"],
+      "recommended_actions": [
+        {
+          "action_id": "A-006",
+          "title": "Expand tagging enforcement to legacy resource classes",
+          "description": "Add policy-as-code enforcement for remaining services and establish remediation SLAs.",
+          "effort": "M",
+          "expected_impact": 2,
+          "dependencies": ["Governance steering group buy-in"],
+          "owner": "Governance"
+        }
+      ]
+    },
+    {
+      "schema_version": "1.0",
+      "finding_id": "F-007",
+      "target_id": "azure-prod",
+      "title": "Alert tuning backlog for identity and network signals",
+      "description": "Logs are onboarded, but alert thresholds and routing need tuning to reduce false positives and improve response.",
+      "category": "Logging/Monitoring",
+      "severity": "high",
+      "likelihood": "medium",
+      "impact": "medium",
+      "evidence": { "signal": "alerts=noisy=true", "source": "synthetic_azure_logging" },
+      "affected_assets": ["log-analytics", "sub-prod-01"],
+      "detection_source": "fixtures/after/findings.json",
+      "detected_at": "2026-02-15T10:15:00Z",
+      "tags": ["alerting", "tuning"],
+      "references": ["NIST CSF RS.AN", "ISO 27001 logging theme"],
+      "recommended_actions": [
+        {
+          "action_id": "A-007",
+          "title": "Tune alerts and incident routing for critical signals",
+          "description": "Define high-signal detections, tune thresholds, and integrate incident routing to on-call practices.",
+          "effort": "M",
+          "expected_impact": 3,
+          "dependencies": ["Log taxonomy and alert strategy"],
+          "owner": "Security"
+        }
+      ]
+    }
+    ,
+    {
+      "schema_version": "1.0",
+      "finding_id": "F-008",
+      "target_id": "aws-prod",
+      "title": "Service principal credential review incomplete",
+      "description": "Privileged service principals exist, but credential lifecycle review and rotation evidence is incomplete.",
+      "category": "IAM",
+      "severity": "medium",
+      "likelihood": "medium",
+      "impact": "high",
+      "evidence": { "signal": "credential_reviews=partial", "source": "synthetic_iam_baseline" },
+      "affected_assets": ["111111111111", "iam-root"],
+      "detection_source": "fixtures/after/findings.json",
+      "detected_at": "2026-02-15T10:30:00Z",
+      "tags": ["service-accounts", "rotation", "review"],
+      "references": ["NIST CSF PR.AC", "ISO 27001 access control theme"],
+      "recommended_actions": [
+        {
+          "action_id": "A-008",
+          "title": "Implement credential review cadence and rotation evidence",
+          "description": "Define review cadence, rotate privileged credentials, and capture evidence via pipeline/audit logs.",
+          "effort": "M",
+          "expected_impact": 3,
+          "dependencies": ["Define break-glass policy"],
+          "owner": "Security"
+        }
+      ]
+    }
+  ]
+}

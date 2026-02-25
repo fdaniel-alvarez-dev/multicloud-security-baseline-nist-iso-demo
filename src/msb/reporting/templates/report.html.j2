@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title }}</title>
+    <style>
+      :root { --fg:#111; --muted:#555; --bg:#fff; --border:#e5e7eb; --accent:#0f766e; }
+      body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+             margin: 32px; color: var(--fg); background: var(--bg); }
+      h1 { margin: 0 0 6px 0; font-size: 28px; }
+      .meta { color: var(--muted); margin-bottom: 18px; }
+      .kpi { display:flex; gap:12px; flex-wrap:wrap; margin: 14px 0 18px; }
+      .card { border:1px solid var(--border); border-radius: 12px; padding: 12px 14px; min-width: 240px; }
+      .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+      .card .value { font-size: 20px; font-weight: 700; margin-top: 4px; }
+      table { border-collapse: collapse; width: 100%; margin: 10px 0 18px; }
+      th, td { border: 1px solid var(--border); padding: 8px 10px; vertical-align: top; }
+      th { background: #f8fafc; text-align: left; }
+      .tag { display:inline-block; padding: 2px 8px; border-radius: 999px; border:1px solid var(--border); color: var(--muted); font-size: 12px; }
+      .accent { color: var(--accent); font-weight: 700; }
+      @media print { body { margin: 12mm; } }
+    </style>
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <div class="meta">
+      {% if author %}<div>Author: {{ author }}</div>{% endif %}
+      <div><span class="tag">Offline simulation</span> <span class="tag">No credentials</span> <span class="tag">No scanning</span></div>
+    </div>
+
+    <div class="kpi">
+      <div class="card">
+        <div class="label">Org posture</div>
+        <div class="value">{{ "%.1f"|format(org.before) }} → <span class="accent">{{ "%.1f"|format(org.after) }}</span></div>
+      </div>
+      <div class="card">
+        <div class="label">Delta</div>
+        <div class="value">{{ "%+.1f"|format(org.delta) }} points ({{ "%+.1f"|format(org.percent_change) }}%)</div>
+      </div>
+    </div>
+
+    <h2>Domain Improvements (Org)</h2>
+    <table>
+      <thead>
+        <tr><th>Domain</th><th>Before</th><th>After</th><th>Delta</th></tr>
+      </thead>
+      <tbody>
+        {% for r in domain_deltas %}
+        <tr>
+          <td>{{ r.domain }}</td>
+          <td>{{ "%.1f"|format(r.before) }}</td>
+          <td>{{ "%.1f"|format(r.after) }}</td>
+          <td>{{ "%+.1f"|format(r.delta) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Top Remediation Backlog (Top 25)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th><th>Target</th><th>Domain</th><th>Risk</th><th>Effort</th><th>Phase</th><th>Quick win</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in backlog %}
+        <tr>
+          <td><div><strong>{{ r.item_id }}</strong></div><div style="color:var(--muted)">{{ r.action_title }}</div></td>
+          <td>{{ r.target_id }}</td>
+          <td>{{ r.domain }}</td>
+          <td>{{ r.risk_score }}</td>
+          <td>{{ r.effort }}</td>
+          <td>{{ r.phase }}</td>
+          <td>{{ r.quick_win }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Roadmap</h2>
+    <table>
+      <thead><tr><th>Phase</th><th>Focus</th><th>Why now</th><th>Example items</th></tr></thead>
+      <tbody>
+        {% for r in roadmap %}
+        <tr>
+          <td>{{ r.phase }}</td>
+          <td>{{ r.focus }}</td>
+          <td>{{ r.why_now }}</td>
+          <td>{{ r.example_items }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Framework Coverage Summary</h2>
+    <table>
+      <thead><tr><th>Framework</th><th>Control theme</th><th>Findings</th></tr></thead>
+      <tbody>
+        {% for r in coverage %}
+        <tr>
+          <td>{{ r.framework }}</td>
+          <td>{{ r.control_theme }}</td>
+          <td style="text-align:right">{{ r.finding_count }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

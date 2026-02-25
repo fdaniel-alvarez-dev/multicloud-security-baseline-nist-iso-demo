@@ -1,0 +1,479 @@
+{
+  "assessed_at": "2026-02-25T05:24:49.284182Z",
+  "mapped_findings": [
+    {
+      "domain": "Network Controls",
+      "finding": {
+        "affected_assets": [
+          "vpc-dev",
+          "222222222222"
+        ],
+        "category": "Network Controls",
+        "description": "Development network boundaries are weak; east-west traffic is broadly permitted and security groups are permissive.",
+        "detected_at": "2026-02-01T10:10:00Z",
+        "detection_source": "fixtures/before/findings.json",
+        "evidence": {
+          "signal": "sg_permissive=true;subnet_tiering=none",
+          "source": "synthetic_network_baseline"
+        },
+        "finding_id": "F-003",
+        "impact": "medium",
+        "likelihood": "high",
+        "recommended_actions": [
+          {
+            "action_id": "A-003",
+            "dependencies": [
+              "Reference VPC architecture patterns"
+            ],
+            "description": "Create segmented subnets, restrict east-west flows, and apply least-privilege security group templates.",
+            "effort": "L",
+            "expected_impact": 3,
+            "owner": "Platform",
+            "title": "Introduce subnet tiering and tighten security group baselines"
+          }
+        ],
+        "references": [
+          "NIST CSF PR.PT",
+          "ISO 27001 network security theme"
+        ],
+        "schema_version": "1.0",
+        "severity": "medium",
+        "tags": [
+          "segmentation",
+          "security-groups"
+        ],
+        "target_id": "aws-dev",
+        "title": "Dev VPC lacks environment segmentation"
+      },
+      "iso": [
+        {
+          "rationale": "Network controls map to secure connectivity, segmentation, and reduction of attack surface.",
+          "theme_id": "A.7",
+          "theme_name": "Network security"
+        }
+      ],
+      "nist": [
+        {
+          "category": "PR.PT (Protective Technology)",
+          "function": "Protect",
+          "rationale": "Network findings commonly indicate missing segmentation, filtering, or insecure exposure."
+        }
+      ],
+      "risk_score": 21.599999999999998
+    },
+    {
+      "domain": "IAM",
+      "finding": {
+        "affected_assets": [
+          "iam-root"
+        ],
+        "category": "IAM",
+        "description": "The AWS root account is not protected with MFA, increasing the likelihood of full account compromise.",
+        "detected_at": "2026-02-01T10:00:00Z",
+        "detection_source": "fixtures/before/findings.json",
+        "evidence": {
+          "signal": "mfa_enabled=false",
+          "source": "synthetic_iam_baseline"
+        },
+        "finding_id": "F-001",
+        "impact": "high",
+        "likelihood": "medium",
+        "recommended_actions": [
+          {
+            "action_id": "A-001",
+            "dependencies": [
+              "Define break-glass policy"
+            ],
+            "description": "Enable MFA, store break-glass procedure, and restrict root usage to emergency-only.",
+            "effort": "S",
+            "expected_impact": 5,
+            "owner": "Security",
+            "title": "Enable MFA for root and lock down root usage"
+          }
+        ],
+        "references": [
+          "NIST CSF PR.AC",
+          "ISO 27001 access control theme"
+        ],
+        "schema_version": "1.0",
+        "severity": "high",
+        "tags": [
+          "mfa",
+          "root",
+          "privileged"
+        ],
+        "target_id": "aws-prod",
+        "title": "Root account MFA not enforced"
+      },
+      "iso": [
+        {
+          "rationale": "IAM issues map directly to access control themes and privileged access hygiene.",
+          "theme_id": "A.5",
+          "theme_name": "Access control"
+        }
+      ],
+      "nist": [
+        {
+          "category": "PR.AC (Identity Management, Authentication, and Access Control)",
+          "function": "Protect",
+          "rationale": "IAM findings typically indicate gaps in access control enforcement, auth strength, or least privilege."
+        },
+        {
+          "category": "ID.GV (Governance)",
+          "function": "Identify",
+          "rationale": "IAM baselines depend on policy, ownership, and governance for consistent privilege management."
+        }
+      ],
+      "risk_score": 45.0
+    },
+    {
+      "domain": "Logging/Monitoring",
+      "finding": {
+        "affected_assets": [
+          "cloudtrail",
+          "111111111111"
+        ],
+        "category": "Logging/Monitoring",
+        "description": "CloudTrail exists but retention and log file validation are inconsistent across regions and accounts.",
+        "detected_at": "2026-02-01T10:05:00Z",
+        "detection_source": "fixtures/before/findings.json",
+        "evidence": {
+          "signal": "retention_days=30;log_validation=off",
+          "source": "synthetic_logging_baseline"
+        },
+        "finding_id": "F-002",
+        "impact": "high",
+        "likelihood": "medium",
+        "recommended_actions": [
+          {
+            "action_id": "A-002",
+            "dependencies": [
+              "Central logging account design"
+            ],
+            "description": "Set retention to 365 days, enable integrity validation, and centralize logs to a dedicated account/bucket.",
+            "effort": "M",
+            "expected_impact": 4,
+            "owner": "Platform/Security",
+            "title": "Standardize CloudTrail retention and enable log file validation"
+          }
+        ],
+        "references": [
+          "NIST CSF DE.CM",
+          "ISO 27001 logging theme"
+        ],
+        "schema_version": "1.0",
+        "severity": "high",
+        "tags": [
+          "logging",
+          "audit",
+          "retention"
+        ],
+        "target_id": "aws-prod",
+        "title": "CloudTrail log integrity and retention not standardized"
+      },
+      "iso": [
+        {
+          "rationale": "Log collection, integrity, and alerting are core to auditability and incident response readiness.",
+          "theme_id": "A.8",
+          "theme_name": "Logging and monitoring"
+        }
+      ],
+      "nist": [
+        {
+          "category": "DE.CM (Security Continuous Monitoring)",
+          "function": "Detect",
+          "rationale": "Logging and monitoring gaps reduce detection coverage and mean time to discovery."
+        },
+        {
+          "category": "RS.AN (Analysis)",
+          "function": "Respond",
+          "rationale": "Without telemetry, response analysis and triage degrade materially."
+        }
+      ],
+      "risk_score": 39.6
+    },
+    {
+      "domain": "Asset Inventory",
+      "finding": {
+        "affected_assets": [
+          "111111111111"
+        ],
+        "category": "Asset Inventory",
+        "description": "Asset ownership and tagging are inconsistent, making it harder to scope incidents and enforce policies.",
+        "detected_at": "2026-02-01T10:25:00Z",
+        "detection_source": "fixtures/before/findings.json",
+        "evidence": {
+          "signal": "required_tags_missing=42%",
+          "source": "synthetic_inventory_review"
+        },
+        "finding_id": "F-006",
+        "impact": "medium",
+        "likelihood": "medium",
+        "recommended_actions": [
+          {
+            "action_id": "A-006",
+            "dependencies": [
+              "Governance steering group buy-in"
+            ],
+            "description": "Enforce required tags (owner, data_class, env), and publish an ownership and exception process.",
+            "effort": "M",
+            "expected_impact": 3,
+            "owner": "Governance",
+            "title": "Define a minimum tagging standard and ownership model"
+          }
+        ],
+        "references": [
+          "NIST CSF ID.AM",
+          "ISO asset management theme"
+        ],
+        "schema_version": "1.0",
+        "severity": "medium",
+        "tags": [
+          "tagging",
+          "ownership"
+        ],
+        "target_id": "aws-prod",
+        "title": "Cloud asset inventory is fragmented across teams"
+      },
+      "iso": [
+        {
+          "rationale": "Asset ownership and classification are core to practical security baselining.",
+          "theme_id": "A.5",
+          "theme_name": "Asset management"
+        }
+      ],
+      "nist": [
+        {
+          "category": "ID.AM (Asset Management)",
+          "function": "Identify",
+          "rationale": "You cannot secure what you cannot enumerate; inventory gaps weaken scope and accountability."
+        }
+      ],
+      "risk_score": 10.8
+    },
+    {
+      "domain": "Logging/Monitoring",
+      "finding": {
+        "affected_assets": [
+          "log-analytics",
+          "sub-prod-01"
+        ],
+        "category": "Logging/Monitoring",
+        "description": "Not all critical Azure resources send diagnostics to Log Analytics; visibility gaps exist for identity and network events.",
+        "detected_at": "2026-02-01T10:15:00Z",
+        "detection_source": "fixtures/before/findings.json",
+        "evidence": {
+          "signal": "diag_settings=partial",
+          "source": "synthetic_azure_logging"
+        },
+        "finding_id": "F-004",
+        "impact": "medium",
+        "likelihood": "medium",
+        "recommended_actions": [
+          {
+            "action_id": "A-004",
+            "dependencies": [
+              "Log taxonomy and alert strategy"
+            ],
+            "description": "Enable diagnostics for identity, network, and key services; define retention and alerting baselines.",
+            "effort": "M",
+            "expected_impact": 4,
+            "owner": "Platform/Security",
+            "title": "Onboard diagnostics for critical resources to Log Analytics"
+          }
+        ],
+        "references": [
+          "NIST CSF DE.CM",
+          "ISO 27001 logging theme"
+        ],
+        "schema_version": "1.0",
+        "severity": "high",
+        "tags": [
+          "diagnostics",
+          "visibility"
+        ],
+        "target_id": "azure-prod",
+        "title": "Centralized log onboarding is partial"
+      },
+      "iso": [
+        {
+          "rationale": "Log collection, integrity, and alerting are core to auditability and incident response readiness.",
+          "theme_id": "A.8",
+          "theme_name": "Logging and monitoring"
+        }
+      ],
+      "nist": [
+        {
+          "category": "DE.CM (Security Continuous Monitoring)",
+          "function": "Detect",
+          "rationale": "Logging and monitoring gaps reduce detection coverage and mean time to discovery."
+        },
+        {
+          "category": "RS.AN (Analysis)",
+          "function": "Respond",
+          "rationale": "Without telemetry, response analysis and triage degrade materially."
+        }
+      ],
+      "risk_score": 26.400000000000002
+    },
+    {
+      "domain": "Data Protection",
+      "finding": {
+        "affected_assets": [
+          "kms-01",
+          "proj-prod-01"
+        ],
+        "category": "Data Protection",
+        "description": "Key rotation is not enabled, increasing exposure window if a key is compromised.",
+        "detected_at": "2026-02-01T10:20:00Z",
+        "detection_source": "fixtures/before/findings.json",
+        "evidence": {
+          "signal": "rotation=off",
+          "source": "synthetic_gcp_kms"
+        },
+        "finding_id": "F-005",
+        "impact": "high",
+        "likelihood": "medium",
+        "recommended_actions": [
+          {
+            "action_id": "A-005",
+            "dependencies": [
+              "Define key management standard"
+            ],
+            "description": "Enable rotation, define key ownership, and set a standard for rotation intervals and exceptions.",
+            "effort": "S",
+            "expected_impact": 4,
+            "owner": "Security",
+            "title": "Enable automated KMS rotation and document key management standards"
+          }
+        ],
+        "references": [
+          "NIST CSF PR.DS",
+          "ISO 27001 crypto theme"
+        ],
+        "schema_version": "1.0",
+        "severity": "high",
+        "tags": [
+          "encryption",
+          "kms",
+          "rotation"
+        ],
+        "target_id": "gcp-prod",
+        "title": "KMS key rotation disabled for production keys"
+      },
+      "iso": [
+        {
+          "rationale": "Encryption and key management map to ISO cryptography and data protection themes.",
+          "theme_id": "A.10",
+          "theme_name": "Cryptography and key management"
+        }
+      ],
+      "nist": [
+        {
+          "category": "PR.DS (Data Security)",
+          "function": "Protect",
+          "rationale": "Data protection findings indicate gaps in encryption, key management, or data lifecycle controls."
+        }
+      ],
+      "risk_score": 41.4
+    }
+  ],
+  "org": {
+    "domain_maturity": [
+      {
+        "domain": "Asset Inventory",
+        "maturity_0_to_5": 4.88,
+        "posture_0_to_100": 97.6
+      },
+      {
+        "domain": "Data Protection",
+        "maturity_0_to_5": 4.5169999999999995,
+        "posture_0_to_100": 90.34
+      },
+      {
+        "domain": "IAM",
+        "maturity_0_to_5": 4.5,
+        "posture_0_to_100": 90.0
+      },
+      {
+        "domain": "Logging/Monitoring",
+        "maturity_0_to_5": 4.2299999999999995,
+        "posture_0_to_100": 84.6
+      },
+      {
+        "domain": "Network Controls",
+        "maturity_0_to_5": 4.747999999999999,
+        "posture_0_to_100": 94.96
+      }
+    ],
+    "posture_score": 57.5
+  },
+  "targets": [
+    {
+      "domain_maturity": [
+        {
+          "domain": "Network Controls",
+          "maturity_0_to_5": 4.747999999999999,
+          "posture_0_to_100": 94.96
+        }
+      ],
+      "environment": "dev",
+      "finding_count": 1,
+      "posture_score": 94.96,
+      "provider": "aws",
+      "target_id": "aws-dev"
+    },
+    {
+      "domain_maturity": [
+        {
+          "domain": "Asset Inventory",
+          "maturity_0_to_5": 4.88,
+          "posture_0_to_100": 97.6
+        },
+        {
+          "domain": "IAM",
+          "maturity_0_to_5": 4.5,
+          "posture_0_to_100": 90.0
+        },
+        {
+          "domain": "Logging/Monitoring",
+          "maturity_0_to_5": 4.538,
+          "posture_0_to_100": 90.76
+        }
+      ],
+      "environment": "prod",
+      "finding_count": 3,
+      "posture_score": 78.36,
+      "provider": "aws",
+      "target_id": "aws-prod"
+    },
+    {
+      "domain_maturity": [
+        {
+          "domain": "Logging/Monitoring",
+          "maturity_0_to_5": 4.692,
+          "posture_0_to_100": 93.84
+        }
+      ],
+      "environment": "prod",
+      "finding_count": 1,
+      "posture_score": 93.84,
+      "provider": "azure",
+      "target_id": "azure-prod"
+    },
+    {
+      "domain_maturity": [
+        {
+          "domain": "Data Protection",
+          "maturity_0_to_5": 4.5169999999999995,
+          "posture_0_to_100": 90.34
+        }
+      ],
+      "environment": "prod",
+      "finding_count": 1,
+      "posture_score": 90.34,
+      "provider": "gcp",
+      "target_id": "gcp-prod"
+    }
+  ]
+}

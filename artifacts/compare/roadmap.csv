@@ -1,0 +1,5 @@
+phase,focus,why_now,example_items,notes
+Phase 0 (Immediate),"Stop the bleeding: high-risk, low-effort control gaps",Quick wins that materially reduce likelihood of account compromise and blind spots.,,Phases are deterministic outputs of the prioritization model for demo purposes.
+Phase 1 (0-30 days),Baseline hardening: IAM + logging coverage + exposure reduction,"Build detection and access-control foundations for repeatable, compliant operations.",F-002:A-002 | F-007:A-007,Phases are deterministic outputs of the prioritization model for demo purposes.
+Phase 2 (30-90 days),Depth and consistency: governance + network segmentation patterns,Address structural gaps and reduce risk from inconsistency across clouds.,F-008:A-008 | F-003:A-003,Phases are deterministic outputs of the prioritization model for demo purposes.
+Phase 3 (90-180 days),"Optimization: scale controls, reduce toil, formalize guardrails",Mature the program through automation and policy-driven governance.,F-006:A-006,Phases are deterministic outputs of the prioritization model for demo purposes.

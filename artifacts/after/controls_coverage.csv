@@ -1,0 +1,11 @@
+framework,control_theme,finding_count
+NIST CSF,Detect | DE.CM (Security Continuous Monitoring),2
+NIST CSF,Respond | RS.AN (Analysis),2
+NIST CSF,Protect | PR.PT (Protective Technology),1
+NIST CSF,Identify | ID.AM (Asset Management),1
+NIST CSF,"Protect | PR.AC (Identity Management, Authentication, and Access Control)",1
+NIST CSF,Identify | ID.GV (Governance),1
+ISO 27001 Theme,A.8 | Logging and monitoring,2
+ISO 27001 Theme,A.7 | Network security,1
+ISO 27001 Theme,A.5 | Asset management,1
+ISO 27001 Theme,A.5 | Access control,1

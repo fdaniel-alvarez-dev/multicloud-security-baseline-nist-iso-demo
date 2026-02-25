@@ -1,0 +1,42 @@
+{
+  "org": {
+    "domain_posture_deltas": [
+      {
+        "after": 94.75,
+        "before": 90.0,
+        "delta": 4.75,
+        "domain": "IAM"
+      },
+      {
+        "after": 96.64,
+        "before": 94.96,
+        "delta": 1.6800000000000068,
+        "domain": "Network Controls"
+      },
+      {
+        "after": 98.8,
+        "before": 97.6,
+        "delta": 1.2000000000000028,
+        "domain": "Asset Inventory"
+      },
+      {
+        "after": 84.6,
+        "before": 84.6,
+        "delta": 0.0,
+        "domain": "Logging/Monitoring"
+      },
+      {
+        "after": 0.0,
+        "before": 90.34,
+        "delta": -90.34,
+        "domain": "Data Protection"
+      }
+    ],
+    "posture": {
+      "after": 74.78999999999999,
+      "before": 57.5,
+      "delta": 17.289999999999992,
+      "percent_change": 30.069565217391293
+    }
+  }
+}
